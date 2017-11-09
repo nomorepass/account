@@ -8,7 +8,7 @@
   },
   "scripts": {
     "dev": "NODE_ENV=dev nodemon app/app.js",
-    "test": "NODE_ENV=test mocha",
+    "test": "NODE_ENV=test mocha 'test/**/*.js'",
     "pretest": "npm run lint",
     "lint": "standard --env=mocha",
     "pretty": "prettier-standard 'app/**/*.js' 'test/**/*.js'",
