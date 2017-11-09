@@ -1,5 +1,5 @@
 {
-  "name": "express-boilerplate",
+  "name": "account",
   "version": "0.1.0",
   "description": "a express application boilerplate",
   "main": "app/app.js",
@@ -20,7 +20,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/isayme/express-boilerplate.git"
+    "url": "git+https://github.com/nomorepass/account.git"
   },
   "keywords": [
     "express",
@@ -29,9 +29,9 @@
   "author": "iSayme <isaymeorg@gmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/isayme/express-boilerplate/issues"
+    "url": "https://github.com/nomorepass/account/issues"
   },
-  "homepage": "https://github.com/isayme/express-boilerplate#readme",
+  "homepage": "https://github.com/nomorepass/account#readme",
   "dependencies": {
     "body-parser": "^1.18.1",
     "config": "^1.26.2",
