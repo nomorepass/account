@@ -5,5 +5,10 @@ module.exports = {
       storage: 'account.db'
     }
   },
-  cors: []
+  cors: [],
+  passport: {
+    jwt: {
+      secret: 'your secret'
+    }
+  }
 }

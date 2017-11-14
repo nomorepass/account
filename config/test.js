@@ -7,5 +7,10 @@ module.exports = {
   },
   cors: [
     'http://a.com'
-  ]
+  ],
+  passport: {
+    jwt: {
+      secret: 'test'
+    }
+  }
 }

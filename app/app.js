@@ -1,9 +1,10 @@
 const express = require('express')
 const bodyParser = require('body-parser')
-const config = require('config')
-const winston = require('winston')
 const morgan = require('morgan')
+const passport = require('passport')
 const partialResponse = require('express-partial-response')
+
+require('./service/passport')
 
 const app = express()
 
@@ -12,14 +13,14 @@ app.use(partialResponse())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
+app.use(passport.initialize())
+
+app.use(require('./middleware/context'))
 app.use(require('./middleware/cors'))
 
-app.use('/version', require('./router/version'))
+app.use(require('./router/version'))
+app.use('/users', require('./router/user'))
 
 app.use(require('./middleware/error-handler'))
-
-const server = app.listen(config.port, () => {
-  winston.info('listen ok, address:', server.address())
-})
 
 module.exports = app
