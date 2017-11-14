@@ -1,13 +1,22 @@
 const User = require('../model/user')
+const AccessToken = require('../model/accesstoken')
 const jwtUtil = require('../util/jwt')
+
+function generateAccessToken (uid) {
+  return jwtUtil.sign({ uid }).then(token => {
+    return AccessToken.create({
+      userId: uid,
+      token
+    }).then(() => {
+      return token
+    })
+  })
+}
 
 exports.signup = function (req, res, next) {
   User.create(req.body)
     .then(user => {
-      return jwtUtil.sign({
-        uid: user.id
-      })
-      .then(token => {
+      return generateAccessToken(user.id).then(token => {
         res.setHeader('Authorization', `Bearer ${token}`)
         res.json(user)
       })
@@ -18,10 +27,7 @@ exports.signup = function (req, res, next) {
 exports.login = function (req, res, next) {
   let user = req.user
 
-  jwtUtil
-    .sign({
-      uid: user.id
-    })
+  generateAccessToken(user.id)
     .then(token => {
       res.setHeader('Authorization', `Bearer ${token}`)
       res.json(user)
@@ -34,7 +40,14 @@ exports.me = function (req, res, next) {
 }
 
 exports.logout = function (req, res, next) {
-  res.json({
-    ok: true
+  let token = req.headers.authorization.replace('Bearer ', '')
+  AccessToken.destroy({
+    where: {
+      token
+    }
+  }).then(() => {
+    res.json({
+      ok: true
+    })
   })
 }

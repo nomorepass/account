@@ -83,6 +83,11 @@ describe('user api', () => {
         .set('Authorization', token)
         .expect(200)
       assert.equal(res.body.ok, true)
+
+      yield request(app)
+        .post('/users/logout')
+        .set('Authorization', token)
+        .expect(401)
     })
   })
 })

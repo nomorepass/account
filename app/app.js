@@ -17,6 +17,7 @@ app.use(passport.initialize())
 
 app.use(require('./middleware/context'))
 app.use(require('./middleware/cors'))
+app.use(require('./middleware/accesstoken'))
 
 app.use(require('./router/version'))
 app.use('/users', require('./router/user'))
