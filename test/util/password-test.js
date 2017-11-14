@@ -17,7 +17,10 @@ describe('password', () => {
       let salt = 'salt'
       let password = 'password'
       let encrypt = yield passwordUtil.encrypt(password, salt)
-      assert.equal(encrypt, '632c2812e46d4604102ba7618e9d6d7d2f8128f6266b4a03264d2a0460b7dcb3')
+      assert.equal(
+        encrypt,
+        '632c2812e46d4604102ba7618e9d6d7d2f8128f6266b4a03264d2a0460b7dcb3'
+      )
     })
   })
 
@@ -25,14 +28,22 @@ describe('password', () => {
     it('should ok', function * () {
       let salt = 'salt'
       let password = 'password'
-      let result = yield passwordUtil.verify('632c2812e46d4604102ba7618e9d6d7d2f8128f6266b4a03264d2a0460b7dcb3', password, salt)
+      let result = yield passwordUtil.verify(
+        '632c2812e46d4604102ba7618e9d6d7d2f8128f6266b4a03264d2a0460b7dcb3',
+        password,
+        salt
+      )
       assert.equal(result, true)
     })
 
     it('should fail', function * () {
       let salt = 'salt'
       let password = 'password'
-      let result = yield passwordUtil.verify('632c2812e46d4604102ba7618e9d6d7d2f8128f6266b4a03264d2a0460b7dcb4', password, salt)
+      let result = yield passwordUtil.verify(
+        '632c2812e46d4604102ba7618e9d6d7d2f8128f6266b4a03264d2a0460b7dcb4',
+        password,
+        salt
+      )
       assert.equal(result, false)
     })
   })

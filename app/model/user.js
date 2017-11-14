@@ -4,34 +4,38 @@ const Sequelize = require('sequelize')
 const sequelize = require('../service/sequelize')
 const passwordUtil = require('../util/password')
 
-const User = sequelize.define('user', {
-  username: {
-    type: Sequelize.STRING,
-    allowNull: false,
-    unique: true,
-    validate: {
-      is: /^[a-zA-Z][0-9a-zA-Z_-]{4,14}[a-zA-Z0-9]$/
+const User = sequelize.define(
+  'user',
+  {
+    username: {
+      type: Sequelize.STRING,
+      allowNull: false,
+      unique: true,
+      validate: {
+        is: /^[a-zA-Z][0-9a-zA-Z_-]{4,14}[a-zA-Z0-9]$/
+      }
+    },
+    password: {
+      type: Sequelize.STRING,
+      allowNull: false
+    },
+    salt: {
+      type: Sequelize.STRING
+    },
+    email: {
+      type: Sequelize.STRING,
+      unique: true,
+      allowNull: false,
+      validate: {
+        isEmail: true
+      }
     }
   },
-  password: {
-    type: Sequelize.STRING,
-    allowNull: false
-  },
-  salt: {
-    type: Sequelize.STRING
-  },
-  email: {
-    type: Sequelize.STRING,
-    unique: true,
-    allowNull: false,
-    validate: {
-      isEmail: true
-    }
+  {
+    timestamps: true,
+    paranoid: true
   }
-}, {
-  timestamps: true,
-  paranoid: true
-})
+)
 
 User.prototype.toJSON = function () {
   var result = Object.assign({}, this.get())
@@ -44,7 +48,8 @@ function hashPassword (user) {
   if (user.changed('password')) {
     user.salt = passwordUtil.generateSalt()
 
-    return passwordUtil.encrypt(user.password, user.salt)
+    return passwordUtil
+      .encrypt(user.password, user.salt)
       .then(function (hashed) {
         user.setDataValue('password', hashed)
       })

@@ -4,7 +4,7 @@ const crypto = require('crypto')
 
 let count = 0
 
-module.exports = (options) => {
+module.exports = options => {
   count++
 
   let user = {

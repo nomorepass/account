@@ -68,9 +68,11 @@ describe('User model', () => {
 
     it('should re enctypt if password changed', function * () {
       let rawpassword = 'a password'
-      let user = yield User.build(UserMocker({
-        password: rawpassword
-      })).save()
+      let user = yield User.build(
+        UserMocker({
+          password: rawpassword
+        })
+      ).save()
       let hashed = user.password
       user.password = rawpassword
       user = yield user.save()

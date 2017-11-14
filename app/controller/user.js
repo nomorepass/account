@@ -2,8 +2,7 @@ const User = require('../model/user')
 const jwtUtil = require('../util/jwt')
 
 exports.signup = function (req, res, next) {
-  User
-    .create(req.body)
+  User.create(req.body)
     .then(user => {
       res.json(user)
     })
@@ -17,7 +16,7 @@ exports.login = function (req, res, next) {
     .sign({
       uid: user.id
     })
-    .then((token) => {
+    .then(token => {
       res.setHeader('Authorization', `Bearer ${token}`)
       res.json(user)
     })
