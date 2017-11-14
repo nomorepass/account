@@ -20,6 +20,7 @@ describe('user api', () => {
           password: mocker.password
         })
         .expect(200)
+      assert.ok(res.header.authorization)
 
       let user = yield User.findOne({ where: { id: res.body.id } })
       assert.notEqual(user, null)

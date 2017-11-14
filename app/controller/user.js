@@ -4,7 +4,13 @@ const jwtUtil = require('../util/jwt')
 exports.signup = function (req, res, next) {
   User.create(req.body)
     .then(user => {
-      res.json(user)
+      return jwtUtil.sign({
+        uid: user.id
+      })
+      .then(token => {
+        res.setHeader('Authorization', `Bearer ${token}`)
+        res.json(user)
+      })
     })
     .catch(next)
 }
