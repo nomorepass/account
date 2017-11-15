@@ -12,7 +12,7 @@
     "pretest": "npm run lint",
     "lint": "standard --env=mocha",
     "pretty": "prettier-standard 'app/**/*.js' 'test/**/*.js'",
-    "coverage": "NODE_ENV=test istanbul cover _mocha 'test/**/*.js'",
+    "coverage": "rm -rf *.test.db && NODE_ENV=test istanbul cover _mocha 'test/**/*.js'",
     "coveralls": "cat ./coverage/lcov.info | coveralls"
   },
   "engines": {
