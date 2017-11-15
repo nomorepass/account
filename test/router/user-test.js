@@ -48,9 +48,11 @@ describe('user api', () => {
 
   describe('me', () => {
     it('should return 401 before login', function * () {
-      yield request(app)
+      let res = yield request(app)
         .get('/users/me')
         .expect(401)
+      let body = res.body
+      assert.equal(body.name, 'UnauthorizedError')
     })
 
     it('should ok', function * () {

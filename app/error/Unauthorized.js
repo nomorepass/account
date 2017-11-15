@@ -6,6 +6,10 @@ class UnauthorizedError extends Error {
   get message () {
     return 'unauthorized client or scope in request.'
   }
+
+  get name () {
+    return this.constructor.name
+  }
 }
 
 module.exports = UnauthorizedError
