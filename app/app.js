@@ -14,6 +14,17 @@ app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
 
 app.use(passport.initialize())
+app.use(function (req, res, next) {
+  passport.authenticate('jwt', function (err, user) {
+    if (err) { return next() }
+    if (!user) { return next() }
+
+    req.logIn(user, { session: false }, function (err) {
+      if (err) { return next(err) }
+      next()
+    })
+  })(req, res, next)
+})
 
 app.use(require('./middleware/context'))
 app.use(require('./middleware/cors'))
