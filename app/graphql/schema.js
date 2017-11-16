@@ -1,6 +1,12 @@
 const User = require('../model/user')
 
-const { GraphQLSchema, GraphQLObjectType, GraphQLInt, GraphQLString, GraphQLNonNull } = require('graphql')
+const {
+  GraphQLSchema,
+  GraphQLObjectType,
+  GraphQLInt,
+  GraphQLString,
+  GraphQLNonNull
+} = require('graphql')
 
 const UserType = new GraphQLObjectType({
   name: 'User',
