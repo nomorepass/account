@@ -1,8 +1,12 @@
 const express = require('express')
+const graphqlHTTP = require('express-graphql')
 const bodyParser = require('body-parser')
+const config = require('config')
 const morgan = require('morgan')
 const passport = require('passport')
 const partialResponse = require('express-partial-response')
+
+const graphql = require('./graphql')
 
 require('./service/passport')
 
@@ -12,6 +16,12 @@ app.use(morgan('dev'))
 app.use(partialResponse())
 app.use(bodyParser.json())
 app.use(bodyParser.urlencoded({ extended: true }))
+
+app.use('/graphql', graphqlHTTP({
+  schema: graphql.schema,
+  graphiql: graphql.config.graphiql,
+  pretty: graphql.config.pretty
+}))
 
 app.use(passport.initialize())
 app.use(function (req, res, next) {
