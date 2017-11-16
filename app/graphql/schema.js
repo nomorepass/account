@@ -27,7 +27,7 @@ const UserType = new GraphQLObjectType({
 
 module.exports = new GraphQLSchema({
   query: new GraphQLObjectType({
-    name: 'Query',
+    name: 'Account',
     description: 'query what you want',
 
     fields: () => ({
